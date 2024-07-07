@@ -14,5 +14,6 @@ user1 = User.create(first_name: "Jane", last_name: "Doe", email: "@yahoo", passw
 product = Product.create(name: "t-shirt", price: 20, quantity: 10, image_url: "somelink", category: "Clothing", rating: 3, description: "good shirt")
 
 order = Order.create(user: user, product: product, quantity_sold: 1)
+order = Order.create(user: user, product: product, quantity_sold: 3)
 
 review = Review.create(user: user, product: product, comment: "First comment")

@@ -11,5 +11,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :products, only: [:index, :show, :create, :update, :destroy]
   resources :reviews, only: [:index, :show, :create, :update, :destroy]
-  resources :orders, only: [:index, :show, :create, :update, :destroy]
+  resources :orders, only: [:index, :show, :create, :update, :destroy] do
+    collection do
+      get 'filter_by_user/:user_id', to: 'orders#filter_by_user', as: 'filter_by_user'
+    end
+  end
 end
