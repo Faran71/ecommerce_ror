@@ -12,7 +12,15 @@ Rails.application.routes.draw do
 
   post 'users/authenticate', to: 'users#authenticate'
 
-  resources :products, only: [:index, :show, :create, :update, :destroy]
+  resources :products, only: [:index, :show, :create, :update, :destroy] do
+    collection do
+      get 'filter_by_category/:category', to: 'products#filter_by_category', as: 'filter_by_category'
+      get 'filter_by_rating/:rating', to: 'products#filter_by_rating', as: 'filter_by_rating'
+      get 'filter_by_price/:min_price/:max_price', to: 'products#filter_by_price', as: 'filter_by_price'
+      get 'search/:q', to: 'products#search'
+    end
+  end
+
 
   resources :reviews, only: [:index, :show, :create, :update, :destroy] do
     collection do
