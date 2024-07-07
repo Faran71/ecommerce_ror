@@ -9,11 +9,21 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :users, only: [:index, :show, :create, :update, :destroy]
+
+  post 'users/authenticate', to: 'users#authenticate'
+
   resources :products, only: [:index, :show, :create, :update, :destroy]
-  resources :reviews, only: [:index, :show, :create, :update, :destroy]
+
+  resources :reviews, only: [:index, :show, :create, :update, :destroy] do
+    collection do
+      get 'filter_by_product/:product_id', to: 'reviews#filter_by_product', as: 'filter_by_product'
+    end
+  end
+
   resources :orders, only: [:index, :show, :create, :update, :destroy] do
     collection do
       get 'filter_by_user/:user_id', to: 'orders#filter_by_user', as: 'filter_by_user'
+      delete 'delete_by_user/:user_id', to: 'orders#destroy_by_user'
     end
   end
 end

@@ -12,13 +12,28 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  # POST /users/authenticate
+  def authenticate
+    user = User.find_by(email: login_params[:email])
+    if user&.authenticate(login_params[:password])
+      render json: user, status: :ok
+    else
+      render json: {error: 'Invalid username or password'}, status: :unauthorized
+    end
+  end
+
   # POST /users
   def create
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user, status: :created
+    temp_user = User.find_by(email: user_params[:email])
+    if temp_user
+      render json: {error: 'email already in use'}, status: :unprocessable_entity
     else
-      render json: @user.errors, status: :unprocessable_entity
+      @user = User.new(user_params)
+      if @user.save
+        render json: @user, status: :created
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -43,6 +58,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :orders, :wallet)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :wallet)
+  end
+
+  def login_params
+    params.permit(:email, :password)
   end
 end

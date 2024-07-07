@@ -16,9 +16,7 @@ class OrdersController < ApplicationController
   # POST /orders
   def create
     @order = Order.new(order_params)
-
     cost = @order.product.price * @order.quantity_sold
-
     if(@order.user.wallet >= cost) && (@order.product.quantity >= @order.quantity_sold)
       if @order.save
         update_product_quantities(@order)
@@ -29,6 +27,18 @@ class OrdersController < ApplicationController
       end
     else
       render json: @order.errors, status: :unauthorized
+    end
+  end
+
+  # DELETE /orders/delete_by_user/:user_id
+  def destroy_by_user
+    user_id = params[:user_id]
+    orders = Order.where(user_id: user_id)
+    if orders.empty?
+      render json: { error: "No orders found for user with id #{user_id}" }, status: :not_found
+    else
+      orders.destroy_all
+      head :no_content
     end
   end
 
