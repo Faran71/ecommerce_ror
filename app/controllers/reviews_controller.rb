@@ -21,14 +21,17 @@ class ReviewsController < ApplicationController
   # POST /reviews
   def create
     @review = Review.new(review_params)
-    @review.save
-    render json: @review
+    if @review.save
+      render json: @review, status: :created
+    else
+      render status: :unauthorized
+    end
   end
 
   private
 
   def review_params
-    params.require(:review).permit(:user, :product, :comment)
+    params.require(:review).permit(:user_id, :product_id, :comment)
   end
 
 end

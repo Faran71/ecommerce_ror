@@ -10,14 +10,18 @@ class OrdersController < ApplicationController
   def filter_by_user
     user = User.find(params[:user_id])
     @orders = user.order
-    render json: @orders
+    render json: @orders, status: :ok
   end
 
   # POST /orders
   def create
     @order = Order.new(order_params)
+    product = Product.find(order_params[:product_id])
+    user = User.find(order_params[:user_id])
     cost = @order.product.price * @order.quantity_sold
     if(@order.user.wallet >= cost) && (@order.product.quantity >= @order.quantity_sold)
+      @order.user = user
+      @order.product = product
       if @order.save
         update_product_quantities(@order)
         update_user_wallet(@order)
@@ -59,7 +63,10 @@ class OrdersController < ApplicationController
 
   def update_user_wallet(order)
     user = order.user
-    user.wallet -= (order.quantity_sold * order.product.price)
-    user.save
+    cost = order.quantity_sold * order.product.price
+    # Rails.logger.debug "User wallet before #{user.wallet}"
+    user.update_column(:wallet, user.wallet - cost)
+    # Rails.logger.debug "User wallet after: #{user.wallet}"
+    # user.save!
   end
 end

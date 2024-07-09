@@ -3,13 +3,13 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all
-    render json: @products
+    render json: @products, status: :ok
   end
 
   # GET /products/{:id}
   def show
     @product = Product.find(params[:id])
-    render json: @product
+    render json: @product, status: :ok
   end
 
   # GET /products/filter_by_category/:category
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/filter_by_price/:low_price/:high_price
+  # GET /products/filter_by_price/:min_price/:max_price
   def filter_by_price
     min_price = params[:min_price]
     max_price = params[:max_price]

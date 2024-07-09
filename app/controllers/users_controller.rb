@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def authenticate
     user = User.find_by(email: login_params[:email])
     if user&.authenticate(login_params[:password])
-      render json: user, status: :ok
+      render json: user, status: :accepted
     else
       render json: {error: 'Invalid username or password'}, status: :unauthorized
     end
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def create
     temp_user = User.find_by(email: user_params[:email])
     if temp_user
-      render json: {error: 'email already in use'}, status: :unprocessable_entity
+      render json: {error: 'email already in use'}, status: :not_acceptable
     else
       @user = User.new(user_params)
       if @user.save
