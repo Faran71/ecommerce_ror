@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: ddatabase-1.c1isioosce1n.eu-west-2.rds.amazonaws.com
+  host: database-1.c1isioosce1n.eu-west-2.rds.amazonaws.com
   username: postgres
   password: agZ1aAJZeFtzG641VuCd
   # database: initial_db
