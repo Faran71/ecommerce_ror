@@ -50,3 +50,5 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+gem 'tzinfo-data', platforms: %i[mswin mingw x64_mingw jruby]
