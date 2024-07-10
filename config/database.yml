@@ -56,7 +56,7 @@ default: &default
 development:
   <<: *default
   database: ecommerce_ror_development
-  username: Faran71
+  username: postgres
   password: password
 
   # The specified database role being used to connect to PostgreSQL.
@@ -92,7 +92,7 @@ development:
 test:
   <<: *default
   database: ecommerce_ror_test
-  username: Faran71
+  username: postgres
   password: password
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -118,5 +118,5 @@ test:
 production:
   <<: *default
   database: ecommerce_ror_production
-  username: Faran71
+  username: postgres
   password: password
