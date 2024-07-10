@@ -31,7 +31,7 @@ module EcommerceRor
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3000', 'https://Faran71.github.io/ecommerce_react' # Update with your frontend URL
+        origins 'http://localhost:3000', 'https://Faran71.github.io/ecommerce_react', 'https://ecommerce-react-ba2q.onrender.com' # Update with your frontend URL
 
         resource '*',
           headers: :any,
