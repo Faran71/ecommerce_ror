@@ -52,7 +52,7 @@ default: &default
   host: localhost
   username: postgres
   # password: password
-  password: Battery_7
+  password: 
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -61,7 +61,7 @@ development:
   <<: *default
   database: ecommerce_ror_development
   username: postgres
-  password: Battery_7
+  password: 
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -97,7 +97,7 @@ test:
   <<: *default
   database: ecommerce_ror_test
   username: postgres
-  password: Battery_7
+  password: 
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -123,4 +123,4 @@ production:
   <<: *default
   database: ecommerce_ror_production
   username: postgres
-  password: Battery_7
+  password : 
