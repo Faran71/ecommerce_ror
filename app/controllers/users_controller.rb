@@ -3,13 +3,13 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-    render json: @users
+    render json: @users, status: :ok
   end
 
   # GET /users/{:id}
   def show
     @user = User.find(params[:id])
-    render json: @user
+    render json: @user, status: :ok
   end
 
   # POST /users/authenticate

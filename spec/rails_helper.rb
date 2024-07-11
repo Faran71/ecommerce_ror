@@ -27,12 +27,23 @@ require 'rspec/rails'
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
-  abort e.to_s.strip
+  puts e.to_s.strip
+  exit 1
 end
 
 
 require 'factory_bot_rails'
 require 'database_cleaner/active_record'
+require 'shoulda/matchers'
+
+# ADDED NEW
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 
 RSpec.configure do |config|
 
@@ -48,6 +59,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
